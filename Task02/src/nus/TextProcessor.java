@@ -29,15 +29,19 @@ public class TextProcessor {
                         if (!line.isEmpty()) {
                             String newLine = line.replaceAll("[^a-zA-Z0-9 ]", "");
                             String[] words = newLine.toLowerCase().trim().split(" ");
-                            //System.out.println(newLine);
-
-                            for (int i = 0; i < words.length - 1; i++) {
-                                String currentWord = words[i];
-                                String NextWord = words[i + 1];
-                                wordAndCount = bigMap.getOrDefault(currentWord, new HashMap<>());
-                                wordAndCount.put(NextWord, wordAndCount.getOrDefault(NextWord, 0) + 1);
+                             //System.out.println(newLine);
+                            if (words.length == 1) {
+                                String currentWord = words[0];
                                 currentCount.put(currentWord, currentCount.getOrDefault(currentWord, 0) + 1);
-                                bigMap.put(currentWord, wordAndCount);
+                            } else {
+                                for (int i = 0; i < words.length - 1; i++) {
+                                    String currentWord = words[i];
+                                    String NextWord = words[i + 1];
+                                    wordAndCount = bigMap.getOrDefault(currentWord, new HashMap<>());
+                                    wordAndCount.put(NextWord, wordAndCount.getOrDefault(NextWord, 0) + 1);
+                                    currentCount.put(currentWord, currentCount.getOrDefault(currentWord, 0) + 1);
+                                    bigMap.put(currentWord, wordAndCount);
+                                }
                             }
                         }
                     }
@@ -50,17 +54,15 @@ public class TextProcessor {
         }
 
         for (String word : bigMap.keySet()) {
-        wordAndCount = bigMap.get(word);
-        int currentWordCount = currentCount.get(word);
-        if(!word.isEmpty()){
-        System.out.print(word);
-        System.out.println();
-        }
-        for (String nextWord : wordAndCount.keySet()) {
-        int count = wordAndCount.get(nextWord);
-        double probability = (double) count/currentWordCount;
-        System.out.printf("    " + nextWord + " %.2f\n", probability);
-        }
+            wordAndCount = bigMap.get(word);
+            int currentWordCount = currentCount.get(word);
+            System.out.print(word);
+            System.out.println();
+            for (String nextWord : wordAndCount.keySet()) {
+                int count = wordAndCount.get(nextWord);
+                double probability = (double) count / currentWordCount;
+                System.out.printf("    " + nextWord + " %.2f\n", probability);
+            }
         }
 
     }
