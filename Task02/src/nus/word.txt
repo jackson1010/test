@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 It is a far, far better thing that I do, than I have ever done; it is a far, far better rest that I go to than I have ever known.
+=======
+It is a far, far better thing that I do, than I have ever done; it is a far, far better rest that I go to than I have ever known.
+>>>>>>> 97a0faa94da2278699208b0a66521ae53d57de2a
